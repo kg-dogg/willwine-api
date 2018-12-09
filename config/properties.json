@@ -1,0 +1,68 @@
+{
+  "development": {
+    "qiniu": {
+      "ACCESS_KEY": "AaalZ54hN1oaGSkVlm0z5FFfuJKzNsYrS2-5NUqA",
+      "SECRET_KEY":"Xvt9N6fzxB0oJUYXTZ5V90CH9wtZz4MYEE2m0SK9",
+      "bucket": "hjqiniu888",
+      "url":"http://7xqj57.com1.z0.glb.clouddn.com/"
+    },
+    "redis": {
+      "expire": 18000
+    },
+    "formidable":{
+      "uploadDir": "./assets/file/"
+    },
+    "dubbo":{
+      "registry": "10.211.4.111:2181"
+    },
+    "expressfile": {
+      "uploadDir": "./assets/file/",
+      "sample": "config/sample.csv"
+    },
+    "port": 3000
+  },
+  "test": {
+    "qiniu": {
+      "ACCESS_KEY": "AaalZ54hN1oaGSkVlm0z5FFfuJKzNsYrS2-5NUqA",
+      "SECRET_KEY":"Xvt9N6fzxB0oJUYXTZ5V90CH9wtZz4MYEE2m0SK9",
+      "bucket": "hjqiniu888",
+      "url":"http://7xqj57.com1.z0.glb.clouddn.com/"
+    },
+    "formidable":{
+      "uploadDir": "./assets/file/"
+    },
+    "redis": {
+      "expire": 18000
+    },
+    "dubbo":{
+      "registry": "10.211.4.111:2181"
+    },
+    "expressfile": {
+      "uploadDir": "./assets/file/express/",
+      "sample": "config/sample.csv"
+    },
+    "port": 3000
+  },
+  "production": {
+    "qiniu": {
+      "ACCESS_KEY": "AaalZ54hN1oaGSkVlm0z5FFfuJKzNsYrS2-5NUqA",
+      "SECRET_KEY":"Xvt9N6fzxB0oJUYXTZ5V90CH9wtZz4MYEE2m0SK9",
+      "bucket": "hjqiniu888",
+      "url":"http://7xqj57.com1.z0.glb.clouddn.com/"
+    },
+    "formidable":{
+      "uploadDir": "/home/thor/temp/photopath/"
+    },
+    "redis": {
+      "expire": 18000
+    },
+    "dubbo":{
+      "registry": "10.211.4.111:2181"
+    },
+    "expressfile": {
+      "uploadDir": "/home/thor/temp/photopath/",
+      "sample": "config/sample.csv"
+    },
+    "port": 3000
+  }
+}
