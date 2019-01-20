@@ -10,7 +10,7 @@
       "expire": 18000
     },
     "formidable":{
-      "uploadDir": "./assets/file/"
+      "uploadDir": "./assets/uploads/"
     },
     "dubbo":{
       "registry": "10.211.4.111:2181"

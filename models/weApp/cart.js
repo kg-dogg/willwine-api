@@ -1,6 +1,11 @@
 import { Sequelize, db } from '../../lib/sequelize';
 
 const Cart = db.define('cart', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   user_id: {
     type: Sequelize.STRING,
     allowNull: false

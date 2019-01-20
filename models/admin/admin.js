@@ -11,17 +11,9 @@ const Admin = db.define('admin', {
     type: Sequelize.STRING,
     unique: true
   },
-  password: { // 密码
-    type: Sequelize.STRING,
-  },
-  password_salt: { // 密码
-    type: Sequelize.STRING,
-  },
-  avatar: { // 头像URL
-    type: Sequelize.STRING,
-  },
-  created_at: Sequelize.DATE,
-  updated_at: Sequelize.DATE,
+  password: Sequelize.STRING,
+  password_salt: Sequelize.STRING,
+  avatar: Sequelize.STRING,
   is_active: { //是否激活
     type: Sequelize.TINYINT(1),
     defaultValue: 1
@@ -30,11 +22,8 @@ const Admin = db.define('admin', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
-  timestamp_at: { // 更新时的时间戳
-    type: Sequelize.BIGINT
-  }
 }, {
-  timestamps: false,
+  paranoid: true,
   comment: '管理员信息表'
 });
 

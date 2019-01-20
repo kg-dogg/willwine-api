@@ -1,6 +1,11 @@
 import { Sequelize, db } from '../../lib/sequelize';
 
 const User = db.define('user', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   username: {
     type: Sequelize.STRING(60),
     defaultValue: '',
@@ -17,7 +22,7 @@ const User = db.define('user', {
     allowNull: false
   },
   birthday: {
-    type: Sequelize.INT(11),
+    type: Sequelize.INTEGER(11),
     defaultValue: 0,
     allowNull: false
   },

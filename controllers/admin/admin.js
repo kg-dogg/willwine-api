@@ -1,26 +1,32 @@
-import moment from 'moment';
-import { Admin} from '../../models';
-import { cryptPwd, checkPwd, createToken } from '../../tools/common';
+import { Admin } from '../../models';
+import { cryptPwd, checkPwd, createToken, verifyToken } from '../../tools/common';
 
 export default {
-  createAdmin: async (ctx, next) => {
-    const { result, salt } = cryptPwd('123456');
+  createAdmin: async (ctx) => {
+    const { username, password } = ctx.request.body;
+    const { result, salt } = cryptPwd({ password });
     const newAdmin = {
-      username: 'admin1',
+      username,
       password: result,
       password_salt: salt,
-      created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
-      updated_at: moment().format('YYYY-MM-DD HH:mm:ss'),
-      is_delete: false,
-      timestamp_at: moment().format('X')
     };
     try {
-      Admin.create(newAdmin);
+      // await Admin.sync({ force: true });
+      const data = await Admin.create(newAdmin);
+      ctx.body = JSON.stringify({
+        result: {
+          msg: '创建管理员成功',
+          data,
+        },
+      });
     } catch (err) {
       console.error('添加管理员出错', err, Admin);
+      ctx.body = JSON.stringify({
+        result: { error: err },
+      });
     }
   },
-  login: async (ctx, next) => {
+  login: async (ctx) => {
     const {
       username: inputUname,
       password: inputPwd,
@@ -44,19 +50,47 @@ export default {
           salt: password_salt,
           dbPwd: password,
         });
-        ctx.set("Content-Type", "application/json");
         if (isCorrect) {
           const token = createToken({ name: username });
-          ctx.body = JSON.stringify({ data: { uuid, username, token } });
+          ctx.body = JSON.stringify({
+            result: {
+              msg: '登录成功',
+              data: { username, token },
+            },
+          });
         } else {
-          ctx.body = JSON.stringify({ error: '登录失败' });
+          ctx.body = JSON.stringify({
+            result: { error: '登录失败' },
+          });
         }
       } else {
-        ctx.set("Content-Type", "application/json");
-        ctx.body = JSON.stringify({ error: '用户不存在' });
+        ctx.body = JSON.stringify({
+          result: { error: '用户不存在' },
+        });
       }
     } catch (err) {
-      console.error('管理员登录出错', err, Admin);
+      ctx.body = JSON.stringify({
+        result: { error: err },
+      });
+    }
+  },
+  logout: async(ctx) => {
+    ctx.body = JSON.stringify({
+      result: {
+        msg: '登出成功',
+      },
+    });
+  },
+  userInfo: async(ctx) => {
+    const token = ctx.header.authorization; // 获取jwt
+    if (token) {
+      const payload = await verifyToken(token.split(' ')[1]); // 解密，获取payload
+      ctx.body = { payload };
+    } else {
+      ctx.body = {
+        message: 'token 错误',
+        code: -1,
+      }
     }
   },
 };
